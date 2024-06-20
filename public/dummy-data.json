@@ -1,0 +1,112 @@
+{
+    "nodes":[
+        {
+        "id": 1,
+        "name": "Apple Store",
+        "description": "Electronics store specializing in Apple products.",
+        "type": "Electronics",
+        "level": 1,
+        "address": "123 Main Street, Mall City",
+        "photo": "https://example.com/apple-store.jpg"
+        },
+        {
+        "id": 2,
+        "name": "Dunkin Donuts",
+        "description": "Donuts and Coffee daily!",
+        "type": "Food & Beverage",
+        "level": 1,
+        "address": "456 First Avenue, Mall City",
+        "photo": "https://example.com/dunkin-donuts.jpg"
+        },
+        {
+        "id": 3,
+        "name": "Starbucks",
+        "description": "Artisan Coffee and Bread Cafe.",
+        "type": "Coffee Shop",
+        "level": 1,
+        "address": "789 Oak Street, Mall City",
+        "photo": "https://example.com/starbucks.jpg"
+        },
+        {
+        "id": 4,
+        "name": "XXI",
+        "description": "Cinemas and Movies.",
+        "type": "Entertainment",
+        "level": 2,
+        "address": "321 Elm Avenue, Mall City",
+        "photo": "https://example.com/xxi.jpg"
+        },
+        {
+        "id": 5,
+        "name": "Adidas",
+        "description": "Sportswear and athletic shoe retailer.",
+        "type": "Sporting Goods",
+        "level": 1,
+        "address": "234 Maple Drive, Mall City",
+        "photo": "https://example.com/adidas.jpg"
+        },
+        {
+        "id": 6,
+        "name": "Auntie Anne's",
+        "description": "Homemade Pretzels made fresh.",
+        "type": "Food & Beverage",
+        "level": 1,
+        "address": "567 Pine Boulevard, Mall City",
+        "photo": "https://example.com/auntie-annes.jpg"
+        },
+        {
+        "id": 7,
+        "name": "Chatime",
+        "description": "Boba Tea drink special from Taiwan.",
+        "type": "Food & Beverage",
+        "level": 1,
+        "address": "890 Cedar Lane, Mall City",
+        "photo": "https://example.com/chatime.jpg"
+        },
+        {
+        "id": 8,
+        "name": "Frank n Co",
+        "description": "Jewelry and Rings for you",
+        "type": "Retail",
+        "level": 1,
+        "address": "111 Walnut Street, Mall City",
+        "photo": "https://example.com/frank-n-co.jpg"
+        },
+        {
+        "id": 9,
+        "name": "Foodcourt",
+        "description": "Food and Beverages",
+        "type": "Food & Beverage",
+        "level": 1,
+        "address": "999 Pinecrest Avenue, Mall City",
+        "photo": "https://example.com/foodcourt.jpg"
+        },
+        {
+        "id": 10,
+        "name": "Toilet 1A",
+        "description": "Restroom Floor 1 Place A",
+        "type": "Facility",
+        "level": 1,
+        "address": "111 Restroom Avenue, Mall City",
+        "photo": ""
+        },
+        {
+        "id": 11,
+        "name": "Toilet 1B",
+        "description": "Restroom Floor 1 Place B",
+        "type": "Facility",
+        "level": 1,
+        "address": "222 Restroom Boulevard, Mall City",
+        "photo": ""
+        },
+        {
+        "id": 12,
+        "name": "Frontdesk",
+        "description": "Concierge of the mall",
+        "type": "Service",
+        "level": 1,
+        "address": "333 Frontdesk Street, Mall City",
+        "photo": ""
+        }
+    ]
+}    
