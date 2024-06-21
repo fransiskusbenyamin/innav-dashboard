@@ -35,6 +35,7 @@
   </template>
   
   <script>
+  import http from '@/http';
   export default {
     data() {
       return {
@@ -45,21 +46,47 @@
       };
     },
     methods: {
-      fetchData() {
-        fetch('/dummy-data.json')
-          .then(response => response.json())
-          .then(data => {
-            this.nodes = data.nodes;
-          });
+      // fetchData() {
+      //   fetch('/dummy-data.json')
+      //     .then(response => response.json())
+      //     .then(data => {
+      //       this.nodes = data.nodes;
+      //       console.log('Nodes:', this.nodes);
+      //     });
   
-        fetch('/dummy-edges.json')
-          .then(response => response.json())
-          .then(data => {
-            this.edges = data.edges;
-          });
+      //   fetch('/dummy-edges.json')
+      //     .then(response => response.json())
+      //     .then(data => {
+      //       this.edges = data.edges;
+      //       console.log('Edges:', this.edges);
+      //     });
+      // },
+      fetchData() {
+        http.get('/node')
+        .then(response => {
+          // Menggunakan .data untuk mengakses data dari respons Axios
+          this.nodes = response.data.data;
+          console.log('Nodes:', this.nodes);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alert('Failed to fetch data. Please try again later.');
+        });
+
+        http.get('/edge')
+        .then(response => {
+          // Menggunakan .data untuk mengakses data dari respons Axios
+          this.edges = response.data.data;
+          console.log('Edges:', this.edges);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alert('Failed to fetch data. Please try again later.');
+        });
       },
+
       getEdgesForNode(nodeId) {
-        return this.edges.filter(edge => edge.ID1 === nodeId || edge.ID2 === nodeId).map(edge => {
+        return this.edges.filter(edge => edge.ID1 === nodeId).map(edge => {
           return {
             relationID: this.generateRelationID(edge),
             ID2: edge.ID1 === nodeId ? edge.ID2 : edge.ID1,
@@ -77,7 +104,16 @@
           ID2: parseInt(this.newEdgeName),
           weight: parseInt(this.newEdgeWeight)
         };
-        this.edges.push(newEdge);
+        http.post('/edge', newEdge)
+          .then(() => {
+            // Tambahkan newLocation ke array locations dan filteredLocations
+            this.fetchData();
+          })
+          .catch(error => {
+            console.error('Error adding location:', error);
+            alert('Failed to add location. Please try again later.');
+          });
+        // this.edges.push(newEdge);
         this.newEdgeName = '';
         this.newEdgeWeight = '';
       },

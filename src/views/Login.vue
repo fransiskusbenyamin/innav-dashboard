@@ -2,7 +2,7 @@
     <div class="login">
       <h2>Login</h2>
       <form @submit.prevent="login">
-        <input type="text" placeholder="ID" v-model="id" required>
+        <input type="text" placeholder="Username" v-model="id" required>
         <input type="password" placeholder="Password" v-model="password" required>
         <button type="submit">Login</button>
       </form>
@@ -10,6 +10,7 @@
 </template>
   
 <script>
+import http from '@/http';
   export default {
     data() {
       return {
@@ -18,12 +19,25 @@
       }
     },
     methods: {
-      login() {
-        if (this.id === '123' && this.password === '123') {
-          // Redirect to dashboard after successful login
-          this.$router.push('/dashboard');
-        } else {
-          alert('Invalid ID or password');
+      async login() {
+        try {
+          const response = await http.post('/account/login', {
+            username: this.id,
+            password: this.password
+          });
+
+          console.log('Login response:', response.data);
+
+          if (response.data.data && response.data.data.access_token) {
+            localStorage.setItem('access_token', response.data.data.access_token);
+            localStorage.setItem('refresh_token', response.data.data.refresh_token);
+            this.$router.push('/dashboard');
+          } else {
+            alert('Login failed: Invalid ID or password');
+          }
+        } catch (error) {
+          console.error('There was an error logging in:', error);
+          alert('Failed to login. Please try again later.');
         }
       }
     }

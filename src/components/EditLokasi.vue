@@ -102,6 +102,7 @@
 </template>
 
 <script>
+import http from '@/http';
 export default {
   data() {
     return {
@@ -164,26 +165,47 @@ export default {
   },
   methods: {
     fetchData() {
-      // Simulate fetching data from a local file
-      fetch('/dummy-data.json')
-        .then(response => response.json())
-        .then(data => {
-          this.locations = data.nodes;
-          this.filteredLocations = data.nodes;
+      http.get('/node')
+        .then(response => {
+          // Menggunakan .data untuk mengakses data dari respons Axios
+          this.locations = response.data.data;
+          this.filteredLocations = response.data.data;
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alert('Failed to fetch data. Please try again later.');
         });
     },
     handleSubmit() {
       if (this.showEditForm) {
         // Update location
-        const index = this.locations.findIndex(loc => loc.id === this.form.id);
-        if (index !== -1) {
-          this.locations.splice(index, 1, { ...this.form });
-        }
+        const updatedLocation = { ...this.form };
+        console.log('Updating location:', updatedLocation);
+
+        // Kirim permintaan PUT ke backend menggunakan Axios
+        http.put(`/node/${updatedLocation.id}`, updatedLocation)
+          .then(() => {
+            // Setelah berhasil mengupdate, panggil ulang fetchData() untuk memperbarui data
+            console.log('Updating location:', updatedLocation);
+            this.fetchData();
+          })
+          .catch(error => {
+            console.error('Error updating location:', error);
+            console.log('Updating location:', updatedLocation);
+            alert('Failed to update location. Please try again later.');
+          });
       } else {
         // Add new location
-        const newLocation = { ...this.form, id: Date.now() };
-        this.locations.push(newLocation);
-        this.filteredLocations.push(newLocation);
+        const newLocation = { ...this.form};
+        http.post('/node', newLocation)
+          .then(() => {
+            // Tambahkan newLocation ke array locations dan filteredLocations
+            this.fetchData();
+          })
+          .catch(error => {
+            console.error('Error adding location:', error);
+            alert('Failed to add location. Please try again later.');
+          });
       }
       this.resetForm();
     },
@@ -193,8 +215,16 @@ export default {
       this.showAddForm = false;
     },
     deleteLocation(id) {
-      this.locations = this.locations.filter(location => location.id !== id);
-      this.filteredLocations = this.filteredLocations.filter(location => location.id !== id);
+      // Kirim permintaan DELETE ke backend menggunakan Axios
+      http.delete(`/node/${id}`)
+        .then(() => {
+          // Setelah berhasil menghapus, panggil ulang fetchData() untuk memperbarui data
+          this.fetchData();
+        })
+        .catch(error => {
+          console.error('Error deleting location:', error);
+          alert('Failed to delete location. Please try again later.');
+        });
     },
     resetForm() {
       this.form = {
