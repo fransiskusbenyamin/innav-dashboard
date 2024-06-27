@@ -18,7 +18,7 @@
         </div>
         <div class="heading">
           <h1 class="head">WELCOME <span> ADMIN</span></h1>
-          <h3 class="sub">Lorem ipsum dolor sit amet</h3>
+          <!-- <h3 class="sub">Lorem ipsum dolor sit amet</h3> -->
         </div>
       </div>
     </div>
